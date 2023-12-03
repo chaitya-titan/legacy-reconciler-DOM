@@ -17,8 +17,10 @@ function updateTodosOnScreen() {
   var parent = document.getElementById("area");
   parent.innerHTML = "";
   let child;
+  let added = 0;
 
   todos.forEach((todo) => {
+    added++;
     child = document.createElement("div");
     var title = document.createElement("h1");
     var desc = document.createElement("p");
@@ -26,11 +28,18 @@ function updateTodosOnScreen() {
     title.innerHTML = todo.title;
     desc.innerHTML = todo.desc;
     btn.innerHTML = "Delete";
+    btn.id = title;
+    btn.onclick = function () {
+      todos = todos.filter((todo) => todo.title !== title.innerHTML);
+      updateTodosOnScreen();
+    };
     child.appendChild(title);
     child.appendChild(desc);
     child.appendChild(btn);
     parent.appendChild(child);
   });
+
+  console.log(added);
 }
 
 updateTodosOnScreen();
